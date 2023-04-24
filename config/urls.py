@@ -20,3 +20,14 @@ from django.urls import path
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Python 23 API",
+        description="makers bootcamp",
+        default_version="v1",
+    ),
+    public=True
+)
