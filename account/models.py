@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.base_user import BaseUserManager
+
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
@@ -31,7 +32,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractUser):
-    username = None #из полей убираем юзернайм
+    username = None # из полей убираем юзернайм
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=50)
     bio = models.TextField()
@@ -39,4 +40,4 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email' #указываем какое поле использовать при логине
     REQUIRED_FIELDS = ['phone']
 
-objects = UserManager() #указываем нового менеджера
+    objects = UserManager() #указываем нового менеджера
