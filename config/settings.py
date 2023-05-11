@@ -23,7 +23,7 @@ SECRET_KEY = 'eFSGRDHTFGMJ12345Y6sfVCB'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*').split()
 
 
 # Application definition
