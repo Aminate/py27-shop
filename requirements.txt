@@ -6,3 +6,4 @@ Pillow
 drf_yasg
 psycopg2-binary
 django-filter
+drf-writable-nested

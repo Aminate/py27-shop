@@ -16,6 +16,7 @@ class UserManager(BaseUserManager):
         user.create_activation_code()#это у нас хеширование пароля
         send_activation_code(user.email, user.create_activation_code)
         user.save(using=self._db)  #это мы сохраняем юзера в бд
+        Billing.objects.create(user=user)
         return user
 
     def create_superuser(self, email, password, phone, **kwargs):
@@ -53,3 +54,26 @@ class User(AbstractUser):
         code = get_random_string(length=10)
         self.activation_code = code
         self.save()
+
+
+class Billing(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='billing')
+    amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+    def top_up(self, amount):
+        "пополнение счета,если транзакция прошла успещна вернется True"
+        if amount > 0:
+            self.amount += amount
+            self.save()
+            return True
+        return False
+
+    def withdraw(self, amount):
+        "снятие денег со счета"
+        if self.amount >= amount:
+            self.amount -= amount
+            self.save()
+            return True
+        return False
+
+

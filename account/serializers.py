@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import User
+from .models import User, Billing
 
 
 class RegisterUserSerializer(serializers.ModelSerializer):
@@ -28,3 +28,10 @@ class RegisterUserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         # VALIDATED_DATA -> {'email': 'admin3@gmail.com', 'phone': '996700071102', 'password': '12345'}
         return User.objects.create_user(**validated_data)
+
+
+class BillingSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Billing
+        fields = ("amount")

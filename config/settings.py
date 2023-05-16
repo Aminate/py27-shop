@@ -10,6 +10,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from decouple import config
 
+db_password = config('DB_PASSWORD')
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -42,6 +45,7 @@ INSTALLED_APPS = [
     'account',
     'main',
     'review',
+    'order',
 ]
 
 MIDDLEWARE = [
@@ -83,7 +87,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': config("DB_NAME"),
         'USER': config("DB_USER"),
-        'PASSWORD': config("DB_PASS"),
+        'PASSWORD': config("DB_PASSWORD"),
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
