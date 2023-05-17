@@ -174,3 +174,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 ACTIVATE_USERS_EMAIL = True
 EMAIL_USE_SSL = False
+
+
+CELERY_BROKER_URL = "redis://localhost:6379"
+CELERY_RESULT_BACKEND = "redis://localhost:6379"

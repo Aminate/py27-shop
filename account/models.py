@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.base_user import BaseUserManager
-from .utils import send_activation_code
+from .tasks import send_activation_code
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
@@ -14,7 +14,7 @@ class UserManager(BaseUserManager):
         #self.model = класс User
         user.set_password(password)
         user.create_activation_code()#это у нас хеширование пароля
-        send_activation_code(user.email, user.create_activation_code)
+        send_activation_code.delay(user.email, user.create_activation_code)
         user.save(using=self._db)  #это мы сохраняем юзера в бд
         Billing.objects.create(user=user)
         return user
