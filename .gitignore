@@ -4,24 +4,6 @@ __pycache__/
 .idea/
 static/
 media/
+celerybeat-schedule.db
 
 
-server {
-    listen 80;
-    server_name 34.125.12.4;
-
-    location = /favicon.ico { access_log off; log_not_found off; }
-
-    location /static/ {
-        root /home/aminuwko/project;
-    }
-
-    location /media/ {
-        root /home/aminuwko/project;
-    }
-
-    location / {
-        include proxy_params;
-        proxy_pass http://unix:/home/aminuwko/project/project.sock;
-    }
-}
